@@ -38,17 +38,17 @@ on:
   workflow_dispatch:
 
 env:
-  ACR_RESOURCE_GROUP: test-delete
-  AZURE_CONTAINER_REGISTRY: registry1731097454904
-  CONTAINER_NAME: image-workflow-1731097326883
-  CLUSTER_RESOURCE_GROUP: test-delete
-  CLUSTER_NAME: testdelete
+  ACR_RESOURCE_GROUP: demo-eastus2
+  AZURE_CONTAINER_REGISTRY: registry1731120287931
+  CONTAINER_NAME: contosoair
+  CLUSTER_RESOURCE_GROUP: demo-eastus2
+  CLUSTER_NAME: contosoair
   DEPLOYMENT_MANIFEST_PATH: |
     manifests/deployment.yaml
     manifests/service.yaml
   DOCKER_FILE: Dockerfile
   BUILD_CONTEXT_PATH: ./src/web
-  NAMESPACE: sample-app-namespace-1731097326921
+  NAMESPACE: contosoair
 
 jobs:
   buildImage:

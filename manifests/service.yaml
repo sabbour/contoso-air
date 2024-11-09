@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: contosoair
-  namespace: sample-app-namespace-1731097326921
+  namespace: contosoair
   labels:
     kubernetes.azure.com/generator: devhub
 spec:

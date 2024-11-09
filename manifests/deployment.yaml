@@ -5,7 +5,7 @@ metadata:
   labels:
     app: contosoair
     kubernetes.azure.com/generator: devhub
-  namespace: sample-app-namespace-1731097326921
+  namespace: contosoair
 spec:
   replicas: 1
   selector:
@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: contosoair
-          image: registry1731097454904.azurecr.io/image-workflow-1731097326883:latest
+          image: registry1731120287931.azurecr.io/contosoair:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
