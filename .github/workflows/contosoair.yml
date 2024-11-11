@@ -46,6 +46,11 @@ env:
   DEPLOYMENT_MANIFEST_PATH: |
     manifests/deployment.yaml
     manifests/service.yaml
+    manifests/keda.yaml
+    manifests/pdb.yaml
+    manifests/service.yaml
+    manifests/servicemonitor.yaml
+    manifests/vpa.yaml
   DOCKER_FILE: Dockerfile
   BUILD_CONTEXT_PATH: ./src/web
   NAMESPACE: contosoair
