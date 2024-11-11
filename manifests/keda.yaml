@@ -3,11 +3,11 @@ kind: TriggerAuthentication
 metadata:
   name: azure-managed-prometheus-trigger-auth
   labels:
-    app: serverloader
+    app: contosoair
 spec:
   podIdentity:
     provider: azure-workload
-    identityId: "" # Update with the KEDA user-assigned managed identity client id
+    identityId: "c7b68898-b586-4f50-9e5c-932a4870faaa" # Update with the KEDA user-assigned managed identity client id
 ---
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
@@ -23,7 +23,7 @@ spec:
   triggers:
   - type: prometheus
     metadata:
-      serverAddress: "https://defaultazuremonitorworkspace-uksouth-gbgqb0evf4e5g9ha.uksouth.prometheus.monitor.azure.com" # Update with the Azure Monitor managed Prometheus endpoint
+      serverAddress: "https://defaultazuremonitorworkspace-eastus2-h7cwd7dveaebggfh.eastus2.prometheus.monitor.azure.com" # Update with the Azure Monitor managed Prometheus endpoint
       threshold: '50'
       metricName: http_requests_received_total
       query: avg(rate(http_request_duration_seconds_count{}[1m]))
