@@ -5,7 +5,6 @@ metadata:
   labels:
     app: contosoair
     kubernetes.azure.com/generator: devhub
-  namespace: contosoair
 spec:
   replicas: 1
   selector:

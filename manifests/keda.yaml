@@ -24,8 +24,8 @@ spec:
   - type: prometheus
     metadata:
       serverAddress: "https://defaultazuremonitorworkspace-eastus2-h7cwd7dveaebggfh.eastus2.prometheus.monitor.azure.com" # Update with the Azure Monitor managed Prometheus endpoint
-      threshold: '50'
-      metricName: http_requests_received_total
-      query: avg(rate(http_request_duration_seconds_count{}[1m]))
+      threshold: '20'
+      metricName: http_request_duration_seconds_count
+      query: avg(rate(http_request_duration_seconds_count{status_code="200"}[1m]))
     authenticationRef:
       name: azure-managed-prometheus-trigger-auth
