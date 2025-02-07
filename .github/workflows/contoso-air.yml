@@ -45,7 +45,7 @@ env:
   CLUSTER_NAME: aks-automatic
   DEPLOYMENT_MANIFEST_PATH: ./manifests
   DOCKER_FILE: Dockerfile
-  BUILD_CONTEXT_PATH: ./
+  BUILD_CONTEXT_PATH: ./src/web
   NAMESPACE: contoso-air
 
 jobs:
