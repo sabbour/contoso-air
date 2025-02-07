@@ -1,24 +1,93 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: contosoair
+  name: contoso-air
   labels:
-    app: contosoair
+    app.kubernetes.io/name: contoso-air
     kubernetes.azure.com/generator: devhub
-  namespace: contosoair
+  namespace: contoso-air
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: contosoair
+      app.kubernetes.io/name: contoso-air
   template:
     metadata:
       labels:
-        app: contosoair
+        app.kubernetes.io/name: contoso-air
     spec:
       containers:
-        - name: contosoair
-          image: registry1731131235454.azurecr.io/contosoair:latest
+        - name: contoso-air
+          image: registry1738910064968.azurecr.io/image-workflow-1738916823460:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              cpu: "1"
+              memory: "1Gi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+          envFrom:
+            - configMapRef:
+                name: contoso-air-config
+            - secretRef:
+                name: secret-ref
+                optional: true
+          livenessProbe:
+            tcpSocket:
+              port: 3000
+          readinessProbe:
+            tcpSocket:
+              port: 3000
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 1
+            successThreshold: 1
+            initialDelaySeconds: 3
+          startupProbe:
+            tcpSocket:
+              port: 3000
+            periodSeconds: 1
+            timeoutSeconds: 3
+            failureThreshold: 1
+            successThreshold: 1
+            initialDelaySeconds: 5
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - SETPCAP
+                - MKNOD
+                - AUDIT_WRITE
+                - CHOWN
+                - DAC_OVERRIDE
+                - FOWNER
+                - FSETID
+                - KILL
+                - SETGID
+                - SETUID
+                - NET_BIND_SERVICE
+                - SYS_CHROOT
+                - SETFCAP
+                - SYS_PTRACE
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              topologyKey: kubernetes.io/hostname
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: contoso-air
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: contoso-air
