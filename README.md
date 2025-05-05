@@ -42,6 +42,25 @@ Start the backend server (ensure the frontend is built first).
 npm run start
 ```
 
+### Docker Deployment
+
+To build and run the application using Docker:
+
+1. Build the Docker image:
+```bash
+docker build -t contoso-air .
+```
+
+2. Run the Docker container:
+```bash
+docker run -p 3001:3001 -d contoso-air
+```
+
+3. Access the application at:
+```
+http://localhost:3001
+```
+
 ### Frontend Scripts
 
 - **`npm run dev`**: Starts the Vite development server for the React frontend.
@@ -52,8 +71,6 @@ npm run start
 ### Backend Scripts
 - **`npm run dev`**: Starts the backend server in development mode using Nodemon.
 - **`npm run start`**: Starts the backend server in production mode.
-
-
 
 ## Prometheus Metrics
 This application integrates Prometheus metrics to monitor performance and usage.
