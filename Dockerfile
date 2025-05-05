@@ -1,48 +1,47 @@
-# Build stage
+# Use the latest stable Node.js 20 image as the base image for building
 FROM node:20 AS builder
 
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
-# Copy package.json files
+# Copy package.json files for all components
 COPY package*.json ./
 COPY frontend/package*.json ./frontend/
 COPY backend/package*.json ./backend/
 
-# Install dependencies
-RUN npm ci
-RUN npm ci --prefix frontend
-RUN npm ci --prefix backend
+# Install dependencies at the root level and in frontend/backend directories
+RUN npm install && \
+    npm install --prefix frontend && \
+    npm install --prefix backend
 
 # Copy the rest of the application code
 COPY . .
 
-# Build the application
+# Build the application (builds frontend and copies to backend/public)
 RUN npm run build
 
-# Runtime stage
+# Use a smaller image for the runtime stage
 FROM node:20-slim AS runtime
 
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
-# Copy package.json files
-COPY package*.json ./
-COPY backend/package*.json ./backend/
+# Copy package.json files - they definitely exist
+COPY package.json ./
+COPY backend/package.json ./backend/
 
 # Install only production dependencies
-RUN npm ci --only=production
-RUN npm ci --only=production --prefix backend
+RUN npm install --only=production && \
+    npm install --only=production --prefix backend
 
 # Copy built application from builder stage
-COPY --from=builder /app/backend/public ./backend/public
-COPY --from=builder /app/backend/src ./backend/src
+COPY --from=builder /app/backend ./backend
 
-# Create a non-root user and set proper permissions
-RUN useradd -m appuser && chown -R appuser:appuser /app
+# Create a non-root user and set permissions
+RUN useradd -m appuser && chown -R appuser /app
 USER appuser
 
-# Expose the port the backend server runs on
+# Expose the port the application runs on
 EXPOSE 3001
 
 # Start the application
