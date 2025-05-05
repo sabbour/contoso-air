@@ -29,7 +29,7 @@ This file contains instructions for creating an Instrumentation resource in Kube
 
 
 For the !!~application_language~!!, the following platforms are supported. Detect the language and replace the value:
-- NodeJS
+- NodeJs
 - Java
 
 You can get the connection string by asking @azure get the connection string of the contosoair-appinsights resource using azure resource graph.
@@ -40,7 +40,7 @@ When creating an Instrumentation use the following template and replace the !!~P
 apiVersion: monitor.azure.com/v1
 kind: Instrumentation
 metadata:
-  name: !!~instrumentation_name~!!
+  name: default # must be called default
   namespace: !!~namespace_name~!!
 spec:
   settings:

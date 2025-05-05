@@ -1,7 +1,7 @@
 apiVersion: monitor.azure.com/v1
 kind: Instrumentation
 metadata:
-  name: contosoair-instrumentation
+  name: default
   namespace: contosoair
 spec:
   settings:
