@@ -5,6 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/name: contoso-air
     kubernetes.azure.com/generator: devhub
+    azure.workload.identity/use: "true"
   namespace: contosoair
 spec:
   replicas: 1
@@ -17,7 +18,6 @@ spec:
         app.kubernetes.io/name: contoso-air
         # azure.workload.identity/use: "true"  # ← Uncomment if using Azure Workload Identity
     spec:
-      # serviceAccountName: sc-account-55e6584a-e547-4e50-a54c-13dfb0d0d317  # ← Uncomment if using Service Connector / Workload Identity
       containers:
         - name: contoso-air
           image: registry1738910064968.azurecr.io/contosoair:latest
@@ -34,10 +34,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: contoso-air-config
-                optional: true  # ← Marked optional to prevent crash if missing
-            - secretRef:
-                name: sc-openai4ad46-secret
-                optional: true
           livenessProbe:
             tcpSocket:
               port: 3001

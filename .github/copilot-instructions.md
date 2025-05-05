@@ -20,3 +20,73 @@ This project will use a multi-stage Dockerfile setup for a Vite + React applicat
 Ensure the Dockerfile follows best practices for containerization including proper layer caching and security.
 
 When you're done, update the README.md with instructions on how to start the container using Docker, includng the port.
+
+Refer to additional instruction files in this directory that start with `copilot-instructions-` for more scenario specific instructions.
+
+# Copilot instructions for Auto Instrumentation using Azure Monitor Application Insights
+
+This file contains instructions for creating an Instrumentation resource in Kubernetes. The intention here is to use the codeless auto-instrumentation feature without installing any SDKs, so don't attempt to install any additional packages or modify the application code.
+
+
+For the !!~application_language~!!, the following platforms are supported. Detect the language and replace the value:
+- NodeJS
+- Java
+
+You can get the connection string by asking @azure get the connection string of the contosoair-appinsights resource using azure resource graph.
+
+When creating an Instrumentation use the following template and replace the !!~PLACEHOLDERS~!!:
+
+```
+apiVersion: monitor.azure.com/v1
+kind: Instrumentation
+metadata:
+  name: !!~instrumentation_name~!!
+  namespace: !!~namespace_name~!!
+spec:
+  settings:
+    autoInstrumentationPlatforms: # required
+      - !!~application_language~!!
+  destination: 
+    applicationInsightsConnectionString: "!!~connection_string~!!"
+```
+
+# Copilot Instructions for Workload Identity
+
+This project uses Workload Identity for authentication to Azure services. Follow these instructions when generating code or configuration related to Workload Identity:
+
+1. Important: Don't use IMDS endpoint, this is deprecated. Use Azure Workload Identity.
+2. Use the `@azure/identity` library for Node.js
+3. Ensure the app uses these environment variables AZURE_TENANT_ID, AZURE_CLIENT_SECRET
+4. Use the DefaultAzureCredential when retrieving credentials
+
+Ensure all generated code and configurations follow best practices for security and scalability.
+
+# Copilot instructions for ServiceMonitor for Azure Monitor managed service for Prometheus
+
+This file contains instructions for creating a ServiceMonitor resource in Kubernetes. The ServiceMonitor resource is used to monitor the health and performance of a service in a Kubernetes cluster.
+
+When creating a Service Monitor use the following template and replace the !!~PLACEHOLDERS~!!:
+
+```
+apiVersion: azmonitoring.coreos.com/v1
+kind: ServiceMonitor
+
+metadata:
+  name: !!~name_of_service_monitor~!!
+spec:
+  labelLimit: 63
+  labelNameLengthLimit: 511
+  labelValueLengthLimit: 1023
+
+  # The selector filters endpoints by service labels.
+  selector:
+    matchLabels:
+      !!~matching_label_for_target_service~!!
+
+  # Multiple endpoints can be specified. Port requires a named port.
+  endpoints:
+  - port: !!~named_port_on_service~!!
+    interval: 30s
+    path: !!~metrics_path~!!
+    scheme: http
+```

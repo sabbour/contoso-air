@@ -11,6 +11,7 @@ spec:
   selector:
     app.kubernetes.io/name: contoso-air
   ports:
-    - protocol: TCP
+    - name: http # add port name for ServiceMonitor
+      protocol: TCP
       port: 3001
       targetPort: 3001
