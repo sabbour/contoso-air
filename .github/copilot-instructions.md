@@ -34,6 +34,8 @@ For the !!~application_language~!!, the following platforms are supported. Detec
 
 You can get the connection string by asking @azure get the connection string of the contosoair-appinsights resource using azure resource graph.
 
+Don't create additional folders. Look for where the Kubernetes *.yaml files are stored, likely under "manifests" and create the file there.
+
 When creating an Instrumentation use the following template and replace the !!~PLACEHOLDERS~!!:
 
 ```
@@ -64,6 +66,8 @@ Ensure all generated code and configurations follow best practices for security 
 # Copilot instructions for ServiceMonitor for Azure Monitor managed service for Prometheus
 
 This file contains instructions for creating a ServiceMonitor resource in Kubernetes. The ServiceMonitor resource is used to monitor the health and performance of a service in a Kubernetes cluster.
+
+Don't create additional folders. Look for where the Kubernetes *.yaml files are stored, likely under "manifests" and create the file there.
 
 When creating a Service Monitor use the following template and replace the !!~PLACEHOLDERS~!!:
 
