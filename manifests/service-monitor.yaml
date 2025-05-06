@@ -1,0 +1,22 @@
+apiVersion: azmonitoring.coreos.com/v1
+kind: ServiceMonitor
+
+metadata:
+  name: contoso-air-service-monitor
+  namespace: contosoair
+spec:
+  labelLimit: 63
+  labelNameLengthLimit: 511
+  labelValueLengthLimit: 1023
+
+  # The selector filters endpoints by service labels.
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: contoso-air
+
+  # Multiple endpoints can be specified. Port requires a named port.
+  endpoints:
+  - port: http
+    interval: 30s
+    path: /api/metrics
+    scheme: http
