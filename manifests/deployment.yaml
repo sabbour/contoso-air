@@ -36,7 +36,7 @@ spec:
             - configMapRef:
                 name: contoso-air-config
             - secretRef:
-              name: sc-openaie6a86-secret
+                name: sc-openaie6a86-secret
           livenessProbe:
             tcpSocket:
               port: 3001
