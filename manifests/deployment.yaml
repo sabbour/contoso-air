@@ -5,7 +5,6 @@ metadata:
   labels:
     app.kubernetes.io/name: contoso-air
     kubernetes.azure.com/generator: devhub
-    azure.workload.identity/use: "true"
   namespace: contosoair
 spec:
   replicas: 1
@@ -15,6 +14,7 @@ spec:
   template:
     metadata:
       labels:
+        azure.workload.identity/use: "true"
         app.kubernetes.io/name: contoso-air
     spec:
       serviceAccountName: sc-account-55e6584a-e547-4e50-a54c-13dfb0d0d317
