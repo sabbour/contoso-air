@@ -1,6 +1,6 @@
-# Copilot Instructions for Dockerfile
+<!-- Use this file to provide workspace-specific custom instructions to Copilot. For more details, visit https://code.visualstudio.com/docs/copilot/copilot-customization#_use-a-githubcopilotinstructionsmd-file -->
 
-This project will use a multi-stage Dockerfile setup for a Vite + React application with a backend. Follow these instructions to generate a Dockerfile:
+This is a Vite + React project. Please ensure that suggestions align with the React framework and Vite's build tool capabilities.
 
 1. Use the latest stable Node.js image as the base image for the builder stage.
 2. Set the working directory to `/app`.
