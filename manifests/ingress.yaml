@@ -26,4 +26,4 @@ spec:
   tls:
     - hosts:
         - "air.demo.aks.contosonative.io"
-      secretName: "keyvault-contoso-air"
+      secretName: "keyvault-contoso-air-ingress"
