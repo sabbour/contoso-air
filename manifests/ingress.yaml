@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.azure.com/tls-cert-keyvault-managed: "true" 
+    kubernetes.azure.com/tls-cert-keyvault-uri: "https://asabbour-kv.vault.azure.net/certificates/wild-demo-aks-contosonative-io"
+  name: "contoso-air-ingress"
+  namespace: "contosoair"
+  labels:
+    app.kubernetes.io/name: contoso-air-ingress
+    app.kubernetes.io/part-of: contoso-air-project
+    kubernetes.azure.com/generator: draft
+spec:
+  ingressClassName: webapprouting.kubernetes.azure.com
+  rules:
+    - host: "air.demo.aks.contosonative.io"
+      http:
+        paths:
+          - backend:
+              service:
+                name: "contoso-air"
+                port:
+                  number: 3001
+            path: "/"
+            pathType: Prefix
+  tls:
+    - hosts:
+        - "air.demo.aks.contosonative.io"
+      secretName: "keyvault-contoso-air"
