@@ -22,7 +22,7 @@ npm install && \
 
 ### Development
 
-Run both the frontend and backend in development mode concurrently.
+Run both the frontdend and backend in development mode concurrently.
 
 ```bash
 npm run dev:all
